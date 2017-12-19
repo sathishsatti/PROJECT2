@@ -15,9 +15,9 @@
             })
 
             // route for the about page
-            .when('/login', {
-                templateUrl : 'views/login.html',
-                controller  : 'loginController'
+            .when('/Login', {
+                templateUrl : 'views/Login.html',
+                controller  : 'UserController'
             })
 
             // route for the contact page
