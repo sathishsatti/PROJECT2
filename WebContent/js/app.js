@@ -2,11 +2,11 @@
 
     // create the module and name it scotchApp
         // also include ngRoute for all our routing needs
-    var app = angular.module('myApp', ['ngRoute']);
+   var app = angular.module('myApp',['ngRoute','ngCookies']);
 
-    // configure our routes
-    app.config(function($routeProvider) {
-        $routeProvider
+   app.config(function ($routeProvider,$locationProvider) {
+	    $locationProvider.hashPrefix('');
+	    $routeProvider
 
             // route for the home page
             .when('/Register', {
@@ -15,9 +15,9 @@
             })
 
             // route for the about page
-            .when('/Login', {
-                templateUrl : 'views/Login.html',
-                controller  : 'LoginController'
+            .when('/login', {
+                templateUrl : 'views/login.html',
+                controller  : 'loginController'
             })
 
             // route for the contact page
