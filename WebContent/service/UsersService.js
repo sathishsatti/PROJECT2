@@ -7,7 +7,7 @@ app.factory('UserService',function($http)
     
     userService.registerUser = function(user){
     	
-    	console.log(user)
+    	console.log("hjh")
     	return $http.post(BASSE_URL +"/registration",user)
     }
     
