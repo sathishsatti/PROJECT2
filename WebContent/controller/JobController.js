@@ -1,62 +1,38 @@
-/**
- * 
- */
-   
-
-app.controller("JobController",function($scope,JobService,$location){
+app.controller('JobController',function($scope,$location,JobService)
+		{
 	
-	$scope.addJob = function(){
-		JobService .addJob($scope.job)
-		.then(function(response){
-			alert("Job added Successfully");
-			$location.path('/home')
-		},function(response){
-			if(response.status == 401){
-				if(response.data.error==8){
-					alert("Access Denied")
-					$location.path('/home')
-				}else{
-					$scope.error = response.data
-					$location.path = "/login"
-				}
-			}
-			if(response.status == 500){
-				$scope.error = response.data;
-				$location.path("/addJob");
-			}
-		})
-	}
 	
-	function getAllJobs(){
+$scope.saveJob=function(){
 		
-		JobService.getAllJobs().then(function(response){
-			
-			$scope.jobList = response.data;
-			
+	console.log("job controller")
+		JobService.createJob($scope.job).then(function(response){
+			console.log("save job operation start")
+			$location.path('/getalljobs')
 		},function(response){
-			$scope.errorMessage = reponse.data.errorMessage;			
-			if(response.status == 401){
-				
-				$location.path('/login')
-			}
+			$scope.message=response.data.message
+			if(response.status==401)
+			$location.path('/login')
+			if(response.status==500)
+			$location.path('/savejob')
 		})
 	}
 	
-	getAllJobs();
 	
-	$scope.getJob  = function(jobId){
-		
-		JobService.getJob(jobId).then(function(response){
-			
-			$scope.job = response.data;
-			
-		},function(response){
-			$scope.errorMessage = reponse.data.errorMessage;			
-			if(response.status == 401){
-				
-				$location.path('/login')
-			}
-			
-		})
-	}
+	$scope.jobs=JobService.getAllJobs().then(function(response){
+		$scope.jobs=response.data;
+	},function(response){
+		$scope.message=response.data.message
+		$location.path('/login')
+	})
+	
+	
+	
+	$scope.getJobDetail=function(id){
+        $scope.showdetails=true;
+        JobService.getJobById(id).then(function(response){
+            $scope.job=response.data;
+        },function(response){
+            console.log(response.status);
+        })
+    }
 })
