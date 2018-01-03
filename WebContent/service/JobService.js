@@ -4,16 +4,16 @@ app.factory('JobService',function($http){
 	jobService.createJob=function(job)
 	{
 		console.log("job service")
-		return $http.post("http://localhost:8082/backend2-project2/savejob",job)
+		return $http.post("http://localhost:8888/backend2/savejob",job)
 	}
 	
 	jobService.getAllJobs=function(){
-		return $http.get("http://localhost:8082/backend2-project2/getalljobs")
+		return $http.get("http://localhost:8888/backend2/getalljobs")
 	}
 	
 	jobService.getJobById=function(id){
         console.log(id)
-        return $http.get("http://localhost:8082/backend2-project2/getjobbyid/"+id)
+        return $http.get("http://localhost:8888/backend2/getjobbyid/"+id)
     }
 	
 	return jobService;

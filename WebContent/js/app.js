@@ -63,3 +63,26 @@
            	controller:'BlogPostDetailsController'
             })
    })
+app.run(function($rootScope,$cookieStore,UserService,$location){
+	alert($cookieStore.get('currentUser'))
+	if($rootScope.currentUser==undefined)
+		$rootScope.currentUser=$cookieStore.get('currentUser')
+		
+	$rootScope.logout=function(){
+		/*
+		 * Call middleware logout url -> Middleware - remove HttpSession attribute,update online status to false
+		 * on success - in frontend , remove cookieStore attribute currentUser, delete $rootScope.
+		 */
+		UserService.logout().then(function(response){
+			delete $rootScope.currentUser;
+			$cookieStore.remove('currentUser')
+			$location.path('/login')
+			
+		},function(response){
+			delete $rootScope.currentUser;
+			$cookieStore.remove('currentUser')
+			console.log(response.status)
+			$location.path('/login')
+		})
+	}
+})

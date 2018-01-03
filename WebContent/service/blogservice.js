@@ -1,6 +1,6 @@
-app.factory('BlogService',function($http){
+app.factory('blogService',function($http){
 	var blogService={}
-	var BASE_URL="http://localhost:8080/project2middleware"
+	var BASE_URL="http://localhost:8888/backend2"
 	blogService.saveBlog=function(blog){
 		return $http.post(BASE_URL + "/saveblog",blog)
 	}
