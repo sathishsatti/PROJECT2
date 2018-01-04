@@ -27,41 +27,28 @@
                 controller  : 'HomeController'
             })
             
-            
-        	.when('/savejob',{
-        		templateUrl:'views/jobform.html',
-        		controller:'JobController'
+            .when('/createblog', {
+        		templateUrl : 'views/createNewBlog.html',
+        		controller :    'BlogPostController'
         	})
-        	
-        	
-        	.when('/getalljobs',{
-        		templateUrl:'views/jobtitle.html',
-        		controller:'JobController'
-            })
-            
-            
-            .when('/addblog',{
-           	templateUrl:'views/blogform.html', //V to Controller
-           	controller:'BlogPostController'
-            })
-            
-            
-            .when('/getblogs',{
-           	templateUrl:'views/blogslist.html',//Controller to V
-           	controller:'BlogPostController'
-            })
-            
-            
-            .when('/admin/getblog/:id',{
-            templateUrl:'views/approvalform.html',
-            controller:'BlogPostDetailsController'
-            })
-            
-            
-            .when('/getblog/:id',{
-           	templateUrl:'views/blogdetails.html',
-           	controller:'BlogPostDetailsController'
-            })
+
+        	.when('/viewblog', {
+        		templateUrl :    'views/viewBlogs.html',
+        		controller :      'BlogPostController'
+        		})
+        		.when('/manageBlogs',
+        			{
+        				templateUrl : 'admin/manageBlogs.html',
+        				controller :    'AdminController'
+        			})
+        		.when('/getBlogForApproval/:id',{
+        		templateUrl:'admin/approvalform.html',
+        		controller:'AdminController'
+        	})
+        	.when('/getBlogDetail/:id',{
+        		templateUrl:'view/viewUserBlogs.html',
+        		controller:'BlogPostController'
+        	})		
    })
 app.run(function($rootScope,$cookieStore,UserService,$location){
 	alert($cookieStore.get('currentUser'))

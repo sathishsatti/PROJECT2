@@ -1,44 +1,31 @@
-app.factory('blogService',function($http){
-	var blogService={}
-	var BASE_URL="http://localhost:8888/backend2"
-	blogService.saveBlog=function(blog){
-		return $http.post(BASE_URL + "/saveblog",blog)
+app.factory('BlogPostService',function($http)
+		{
+var blogPostService={}
+
+blogPostService.saveBlog=function(blogPost)
+{
+return $http.post("http://localhost:8888/backend2/createBlog", blogPost)
+}
+
+blogPostService.blogsApproved=function()
+{
+	return $http.get("http://localhost:8888/backend2/listofblogs/"+1)
 	}
-	//select * from blogpost where approved=1
-	blogService.getBlogsApproved=function(){
-		return $http.get(BASE_URL + "/getblogs/"+1)
+
+
+blogPostService.getBlogPost=function(id)
+{
+	return $http.get("http://localhost:8888/backend2/getblogpost/"+id)
 	}
-	
-	//select * from blogpost where approved=0
-	blogService.getBlogsWaitingForApproval=function(){
-		return $http.get(BASE_URL + "/getblogs/"+0)
-	}
-	
-	blogService.getBlogPost=function(id){
-		return $http.get(BASE_URL + "/getblog/"+id)
-	}
-	
-	blogService.updateBlogPost=function(blogPost,rejectionReason){
-		if(rejectionReason==undefined)
-		return $http.put(BASE_URL + "/updateapprovalstatus?rejectionReason="+'Not Mentioned',blogPost)
-		else
-			return $http.put(BASE_URL + "/updateapprovalstatus?rejectionReason="+rejectionReason,blogPost)
-	}
-	
-    blogService.userLikes=function(id){
-    	return $http.get(BASE_URL + "/userLikes/"+id)
-    }	
-	
-    blogService.updateLikes=function(blogPost){
-    	return $http.put(BASE_URL + "/updatelikes",blogPost);
+
+
+blogPostService.addComment=function(blogComment){
+    return $http.post("http://localhost:8888/backend2/addblogcomment",blogComment)
     }
-    
-    blogService.addComment=function(commentText,id){
-    	//http://......../Good/12  -> @PathVariable
-    	return $http.post(BASE_URL + "/addcomment?commentText="+commentText + '&id='+id)
-    	//http://localhost:8080/project2middleware/addcomment?commentText='Thanks'&id=484 
+
+blogPostService.getBlogComments=function(blogId){
+    return $http.get("http://localhost:8888/backend2/getblogcomments/"+blogId)
     }
-	return blogService;
+
+return blogPostService;
 })
-
-

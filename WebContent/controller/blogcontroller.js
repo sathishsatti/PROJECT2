@@ -1,47 +1,25 @@
-app.controller('BlogPostController',function($scope,BlogService,$location,$rootScope){
-	
-	
-	$scope.saveBlog=function(){
-		BlogService.saveBlog($scope.blog)
-		.then(
-			function(response){
-			alert('Blog Post added successfully and it is waiting for approval')
-			$location.path('/home')
+app.controller('BlogPostController',function($scope,BlogPostService,$location){
+	$scope.message=''
+	$scope.saveBlogPost=function(){
+		BlogPostService.saveBlog($scope.blogPost).then(function(response){
+			$scope.success="Blog post inserted successfully and waiting for approval"
+			//	$location.path('/getallblogs')
 		},function(response){
+			$scope.message=response.data.message
 			if(response.status==401){
-				$location.path('/login')
+		$location.path('/login')
 			}
 			if(response.status==500){
-				$scope.error=response.data
-			}
+				$location.path('/saveblogpost')
+		    }
 		})
 	}
 	
-	//Two variables, blogsApproved, blogsWaitingForApproval
-	
-	//Statement to initialize variable blogsApproved 
-	BlogService.getBlogsApproved().then(function(response){
-		$scope.blogsApproved=response.data//select * from blogpost where approved=1
-	},function(response){
-		if(response.status==401)
-			$location.path('/login')
-	})
-	
-	if($rootScope.currentUser.role=='ADMIN'){
-	BlogService.getBlogsWaitingForApproval().then(function(response){
-		$scope.blogsWaitingForApproval=response.data//select * from blogpost where approved=0
-	},function(response){
-		if(response.status==401){
-			if(response.data.code==5)
-			$location.path('/login')
-			else{
-				alert(response.data.message)
-				$location.path('/home')
-			}
-		}
-	})
-	}
-	
-})/**
- * 
- */
+  $scope.blogsApproved=BlogPostService.blogsApproved().then(function(response){
+	  $scope.blogsApproved=response.data;
+  },function(response){
+	  console.log(response.status)
+  })
+  
+  
+})
