@@ -30,7 +30,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="blogPost in blogsApproved | orderBy: '-postedOn'">
+			<tr ng-repeat="blogPost in blogsApproved ">
 				<td><a href="#/getblog/{{blogPost.id}}">{{blogPost.blogTitle}}</a></td>
 				<td>{{blogPost.postedBy.username}}</td>
 				<td>{{blogPost.postedOn | date : 'medium'}}</td>
