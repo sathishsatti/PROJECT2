@@ -1,6 +1,7 @@
 app.factory('FriendService',function($http){
 	var friendService={}
 	var BASE_URL="http://localhost:8888/backend2"
+		
 	friendService.getAllSuggestedUsers=function()
 	{
 		return $http.get(BASE_URL + "/suggestedusers")

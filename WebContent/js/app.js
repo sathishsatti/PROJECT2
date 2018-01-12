@@ -64,8 +64,12 @@
 	        		templateUrl : 'views/updateprofile.html',
 	        		controller : 'UserController'
 	        	})
-
-            // route for the contact page
+	        	 .when('/chat',{
+	        		 templateUrl:'views/chat.html',
+	        		 controller:'ChatCtrl'
+	        	 })
+	        	
+	                  // route for the contact page
             .when('/Home', {
                 templateUrl : 'views/Home.html',
                 controller  : 'HomeController'
